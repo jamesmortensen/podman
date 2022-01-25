@@ -11,7 +11,7 @@ var (
 
 func (v *MachineVM) addArchOptions() []string {
 	opts := []string{
-		"-accel", "kvm",
+		//"-accel", "tcg",
 		"-cpu", "host",
 		"-M", "virt,gic-version=max",
 		"-bios", getQemuUefiFile("QEMU_EFI.fd"),

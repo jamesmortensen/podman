@@ -103,6 +103,7 @@ func (p *Provider) NewMachine(opts machine.InitOptions) (machine.VM, error) {
 		"-device", "virtio-serial",
 		"-chardev", "socket,path=" + virtualSocketPath + ",server=on,wait=off,id=" + vm.Name + "_ready",
 		"-device", "virtserialport,chardev=" + vm.Name + "_ready" + ",name=org.fedoraproject.port.0"}...)
+	fmt.Println("QEMU string: %s ", cmd)
 	vm.CmdLine = cmd
 	return vm, nil
 }
@@ -301,7 +302,7 @@ func (v *MachineVM) Start(name string, _ machine.StartOptions) error {
 		qemuSocketConn net.Conn
 		wait           time.Duration = time.Millisecond * 500
 	)
-
+	//fmt.Println("Start: options = %s", machine.StartOptions)
 	if err := v.startHostNetworking(); err != nil {
 		return errors.Errorf("unable to start host networking: %q", err)
 	}
@@ -355,12 +356,12 @@ func (v *MachineVM) Start(name string, _ machine.StartOptions) error {
 	if logrus.GetLevel() != logrus.DebugLevel {
 		cmd = append(cmd, "-display", "none")
 	}
-
+        fmt.Println("Starting qemu process: ", v.CmdLine[0], cmd, attr)
 	_, err = os.StartProcess(v.CmdLine[0], cmd, attr)
 	if err != nil {
 		return err
 	}
-	fmt.Println("Waiting for VM ...")
+	fmt.Println("James Waiting for VM ...")
 	socketPath, err := getRuntimeDir()
 	if err != nil {
 		return err

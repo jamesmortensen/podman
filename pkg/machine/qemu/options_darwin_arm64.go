@@ -13,7 +13,7 @@ var (
 func (v *MachineVM) addArchOptions() []string {
 	ovmfDir := getOvmfDir(v.ImagePath, v.Name)
 	opts := []string{
-		"-accel", "hvf",
+//		"-accel", "hvf",
 		"-accel", "tcg",
 		"-cpu", "cortex-a57",
 		"-M", "virt,highmem=off",

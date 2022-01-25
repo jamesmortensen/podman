@@ -6,7 +6,7 @@ var (
 
 func (v *MachineVM) addArchOptions() []string {
 	opts := []string{
-		"-accel", "kvm",
+//		"-accel", "kvm",
 		"-cpu", "host",
 	}
 	return opts
